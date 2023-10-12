@@ -15,9 +15,7 @@ public class ProbesList {
 		this.patientId = patientId;
 	}
 
-	public ProbesList() {
-
-	}
+	
 
 	public long getPatientId() {
 		return patientId;
