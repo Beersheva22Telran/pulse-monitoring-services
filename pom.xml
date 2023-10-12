@@ -96,5 +96,6 @@
 	<modules>
 		<module>jumps-detector</module>
 		<module>average-populator</module>
+		<module>average-reducer</module>
 	</modules>
 </project>
