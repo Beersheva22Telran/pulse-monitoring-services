@@ -33,7 +33,7 @@ public class EmailDataProviderImpl implements EmailDataProvider {
 					restTemplate.exchange(url, HttpMethod.GET, null,
 							EmailNotificationData.class);
 			res = responseEntity.getBody();
-		} catch (RestClientException e) {
+		} catch (Exception e) {
 			log.error("error: {}", e.getMessage());
 		}
 		return res;
