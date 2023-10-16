@@ -98,5 +98,7 @@
 		<module>average-populator</module>
 		<module>average-reducer</module>
 		<module>jumps-email-notifier</module>
+
+		<module>email-data-provider</module>
 	</modules>
 </project>
