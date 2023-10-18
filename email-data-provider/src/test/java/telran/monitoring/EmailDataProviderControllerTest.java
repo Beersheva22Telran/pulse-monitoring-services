@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -39,14 +40,16 @@ void serviceMocking() {
 	when(service.getEmailData(PATIENT_ID_NOT_EXIST)).thenThrow(new RuntimeException(ERROR_RESPONSE));
 }
 	@Test
-	void normalFlow() throws Exception {
+	@DisplayName("service returns data")
+	void dataExistFlow() throws Exception {
 		String responseJSON = mockMvc.perform(get("http://localhost:8080/data/" + PATIENT_ID_NORMAL)).andDo(print()).andExpect(status().isOk())
 		.andReturn().getResponse().getContentAsString();
 		assertEquals(mapper.readValue(responseJSON, EmailNotificationData.class), data);
 	}
 	@Test
-	void abnormalFlow() throws Exception {
-		String response = mockMvc.perform(get("http://localhost:8080/data/123")).andDo(print()).andExpect(status().isNotFound())
+	@DisplayName("service throws exception")
+	void noDataFlow() throws Exception {
+		String response = mockMvc.perform(get("http://localhost:8080/data/" + PATIENT_ID_NOT_EXIST)).andDo(print()).andExpect(status().isNotFound())
 		.andReturn().getResponse().getContentAsString();
 		assertEquals(response, ERROR_RESPONSE);
 	}

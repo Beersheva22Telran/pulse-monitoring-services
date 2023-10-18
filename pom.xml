@@ -100,5 +100,6 @@
 		<module>jumps-email-notifier</module>
 
 		<module>email-data-provider</module>
+		<module>pulse-values-back-office</module>
 	</modules>
 </project>
