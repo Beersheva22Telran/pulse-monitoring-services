@@ -42,7 +42,7 @@ PulseProbe probeJump = new PulseProbe(PATIENT_ID_JUMP, JUMP_VALUE, 0, 0);
 LastPulseValue noJumpValue = new LastPulseValue(PATIENT_ID_NO_JUMP, VALUE);
 LastPulseValue jumpValue = new LastPulseValue(PATIENT_ID_JUMP, VALUE);
 JumpPulse jumpExpected = new JumpPulse(PATIENT_ID_JUMP, VALUE, JUMP_VALUE);
-String consumerBindingName = "pulseProbeConsumer-in-0";
+String consumerBindingName = "pulseProbeConsumerJumps-in-0";
 @Value("${app.jumps.binding.name}")
 String producerBindingName;
 @MockBean

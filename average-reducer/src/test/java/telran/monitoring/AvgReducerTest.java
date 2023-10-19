@@ -46,7 +46,7 @@ public class AvgReducerTest {
 	OutputDestination consumer;
 	@MockBean
 	ProbesListsRepository probesListRepository;
-	String consumerBindingName = "pulseProbeConsumer-in-0";
+	String consumerBindingName = "pulseProbeConsumerAvg-in-0";
 	@Value("${app.avg.binding.name}")
 	String producerBindingName;
 	@BeforeAll
