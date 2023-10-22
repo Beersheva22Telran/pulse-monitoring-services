@@ -29,6 +29,7 @@ public class JumpsDetoctorServiceImpl implements JumpsDetectorService {
 			log.trace(" record in redis exists but no jump");
 		}
 		lastValue = new LastPulseValue(pulseProbe.patientId(), pulseProbe.value());
+		lastValueRepo.save(lastValue);
 		return res;
 	}
 
