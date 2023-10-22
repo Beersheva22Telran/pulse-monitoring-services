@@ -33,6 +33,7 @@ public class AvgValuesReducerAppl {
 		return this::processPulseProbe;
 	}
 	void processPulseProbe(PulseProbe probe) {
+		log.trace("{}", probe);
 		long patientId = probe.patientId();
 		Integer avgValue = service.reduce(probe);
 		if (avgValue != null) {
