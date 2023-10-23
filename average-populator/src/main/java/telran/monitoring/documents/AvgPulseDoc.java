@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import telran.monitoring.dto.PulseProbe;
-
-@Document(collection = "avg-pules-values")
+import telran.monitoring.api.*;
+@Document(collection = ApiConstants.avgValuesCollection)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AvgPulseDoc {
 	long patientId;

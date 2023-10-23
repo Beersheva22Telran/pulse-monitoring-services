@@ -5,9 +5,10 @@ import java.util.Objects;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import telran.monitoring.api.ApiConstants;
 import telran.monitoring.dto.PulseProbe;
 
-@Document(collection="documents")
+@Document(collection = ApiConstants.avgValuesCollection)
 public class AvgPulseDoc {
 long patientId;
 LocalDateTime dateTime;

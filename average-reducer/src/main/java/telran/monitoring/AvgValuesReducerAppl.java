@@ -43,6 +43,7 @@ public class AvgValuesReducerAppl {
 			log.trace("for patient {} no avg value yet", patientId);
 		}
 		
+		
 	}
 	
 }

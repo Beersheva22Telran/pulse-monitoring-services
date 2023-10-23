@@ -39,8 +39,8 @@ OutputDestination consumer;
 PulseProbe probeNoRedis = new PulseProbe(PATIENT_ID_NO_REDIS, VALUE, 0, 0);
 PulseProbe probeNoJump = new PulseProbe(PATIENT_ID_NO_JUMP, VALUE, 0, 0);
 PulseProbe probeJump = new PulseProbe(PATIENT_ID_JUMP, JUMP_VALUE, 0, 0);
-LastPulseValue noJumpValue = new LastPulseValue(PATIENT_ID_NO_JUMP, VALUE);
-LastPulseValue jumpValue = new LastPulseValue(PATIENT_ID_JUMP, VALUE);
+LastPulseValue noJumpValue = new LastPulseValue(PATIENT_ID_NO_JUMP, VALUE, System.currentTimeMillis());
+LastPulseValue jumpValue = new LastPulseValue(PATIENT_ID_JUMP, VALUE, System.currentTimeMillis());
 JumpPulse jumpExpected = new JumpPulse(PATIENT_ID_JUMP, VALUE, JUMP_VALUE);
 String consumerBindingName = "pulseProbeConsumerJumps-in-0";
 @Value("${app.jumps.binding.name}")
@@ -64,6 +64,13 @@ void redisMocking() {
 	void noJumpTest() {
 		
 		producer.send(new GenericMessage<PulseProbe>(probeNoJump), consumerBindingName);
+		Message<byte[]> message = consumer.receive(100, producerBindingName);
+		assertNull(message);
+	}
+	@Test
+	void noJumpByPeriodTest() throws InterruptedException {
+		Thread.sleep(1500);
+		producer.send(new GenericMessage<PulseProbe>(probeJump), consumerBindingName);
 		Message<byte[]> message = consumer.receive(100, producerBindingName);
 		assertNull(message);
 	}

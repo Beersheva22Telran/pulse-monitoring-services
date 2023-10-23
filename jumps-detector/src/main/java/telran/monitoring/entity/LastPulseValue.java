@@ -13,6 +13,7 @@ public class LastPulseValue {
 	@Id
 long patientId;
 	int value;
+	long timestamp;
 	
 
 }
