@@ -1,0 +1,100 @@
+version: "3"
+services:
+   config-server: 
+       build: 
+          config-server   #path to the directory where Dockerfile exists
+       deploy:
+          resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M            
+   average-populator: 
+       build: 
+          average-populator
+       deploy:
+          resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+       environment:
+             - KARAFKA_PASSWORD=${KARAFKA_PASSWORD}
+             - MONGO_PASSWORD=${MONGO_PASSWORD}
+   average-reducer: 
+       build: 
+          average-reducer
+       deploy:
+           resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+       environment:
+             - KARAFKA_PASSWORD=${KARAFKA_PASSWORD}
+             - REDIS_PASSWORD=${REDIS_PASSWORD}
+   email-data-provider: 
+       build: 
+          email-data-provider
+       deploy:
+          resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+       environment:
+             - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+       ports:
+          - 8080:8080   #FIXME port must not be exposed
+   jumps-detector: 
+       build: 
+          jumps-detector
+       deploy:
+          resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+       environment:
+             - KARAFKA_PASSWORD=${KARAFKA_PASSWORD}
+             - REDIS_PASSWORD=${REDIS_PASSWORD}
+   jumps-email-notifier: 
+       build: 
+          jumps-email-notifier
+       deploy:
+          resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+       environment:
+             - KARAFKA_PASSWORD=${KARAFKA_PASSWORD}
+             - MAIL_PASSWORD=${MAIL_PASSWORD}
+             - DATA_PROVIDER_HOST=email-data-provider
+   pulse-values-back-office:
+      build: pulse-values-back-office
+      deploy:
+         resources: 
+             limits: 
+                cpus: '0.5'
+                memory: 300M
+             reservations:
+                cpus: '0.3'
+                memory: 200M    
+      environment:
+            - MONGO_PASSWORD=${MONGO_PASSWORD}
+            - TZ=GMT+3
+      ports: 
+            - 9090:9090 #FIXME port must not be exposed
