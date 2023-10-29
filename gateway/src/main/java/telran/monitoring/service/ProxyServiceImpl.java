@@ -18,26 +18,26 @@ public class ProxyServiceImpl implements ProxyService {
 	Map<String, String> urlsMap;
 	@Override
 	public ResponseEntity<byte[]> proxyRouting(ProxyExchange<byte[]> proxy, HttpServletRequest request) {
-		String routedURI = getRoutedURI(request);
+		String routedURI = getRoutedURI(request); 
 		log.trace("routed URI {}", routedURI);
 		return proxy.uri(routedURI).get();
 	}
 
 	private String getRoutedURI(HttpServletRequest request) {
-		String receivedURI = request.getRequestURI();
-		String firstURN = receivedURI.split("/+")[1];
+		String receivedURI = request.getRequestURI();//example, /pulse/values/max/8
+		String firstURN = receivedURI.split("/+")[1]; //pulse
 		log.trace("firstURN is {}", firstURN);
 		if(!urlsMap.containsKey(firstURN)) {
 			throw new NotFoundException(firstURN + " Not found" );
 		}
-		String routedURL = urlsMap.get(firstURN);
+		String routedURL = urlsMap.get(firstURN); //http://pulse-values-back-office:9090
 		log.trace("routedURL {}", routedURL);
-		String queryString = request.getQueryString();
+		String queryString = request.getQueryString(); //from=2023-10-26T14:00&to=2023-10-26T16:00
 		if(queryString == null) {
 			queryString = "";
 		}
 		
-		return String.format("%s%s?%s", routedURL, receivedURI, queryString);
+		return String.format("%s%s?%s", routedURL, receivedURI, queryString);//http://pulse-values-back-office:9090/pulse/values/max/8?from=2023-10-26T14:00&to=2023-10-26T16:00
 	}
 	@PostConstruct
 	void mapLogging() {
